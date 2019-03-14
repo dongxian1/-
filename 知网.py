@@ -77,7 +77,7 @@ class SearchTools(object):
         link = lxml.xpath('.//table[@class="GridTableContent"]//td/a[@class="fz14"]/@href')
         next_url= lxml.xpath('.//div[@class = "TitleLeftCell"]/a[1]/@href')[0]
         for i in range(2,10):#将下一页的所有链接及以后的所以链接全部存入link列表 转入给详情页函数
-            curpage_pattern_compile = re.compile(r'.*?curpage=(\d+).*?')
+            curpage_pattern_compile = re.compile(r'.*?curpage=(\d+).*?')#使用正则将下一页的url中page=替换出来循环处理页数
             self.add = CHANGE_PAGE_URL + re.sub(curpage_pattern_compile, '?curpage=' + str(i),next_url)
             second_get_res = self.session.get(self.add, headers=HEADER)
             lxml = etree.HTML(second_get_res.text)
